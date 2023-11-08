@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:13:15 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/08 15:19:03 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/08 20:14:27 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ typedef struct s_philosopher
 	int					*death_flag;
 	t_args				*args;
 	size_t				start_time;
+	int					eat_count;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
 }t_philosopher;
 
 // actions.c
 void			wait_for_eat(t_philosopher *philo);
-void			die(t_philosopher *philo, int start_time, int id);
+void			*die(t_philosopher *philo, size_t start_time, int id);
 void			eat(t_philosopher *philo);
 void			philo_sleep(t_philosopher *philo);
 void			think(t_philosopher *philo);

@@ -1,7 +1,7 @@
 NAME	= philosophers
 
 CC		= gcc
-CFLAGS	= -Werror -Wextra -Wall -ofast
+CFLAGS	= -Werror -Wextra -Wall -odebug -g -fsanitize=address
 
 SRC_PATH	=	src/
 SRC		=	actions.c \

@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:44:08 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/08 15:19:10 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/08 20:13:47 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,39 @@ static void	sync_start_time(t_philosopher *philo, size_t *start_time)
 	pthread_mutex_unlock(philo->death_mutex);
 }
 
+static void	*finish_dinner(t_philosopher *philo)
+{
+	pthread_mutex_lock(philo->death_mutex);
+	*philo->death_flag = 1;
+	pthread_mutex_unlock(philo->death_mutex);
+	return (NULL);
+}
+
 void	*monitoring_thread(t_philosopher *philo)
 {
 	int		id;
 	size_t	last_eat_time;
 	size_t	start_time;
+	int		dinner_finished;
 
 	sync_start_time(philo, &start_time);
 	id = 0;
 	while (1)
 	{
-		while (philo[id].id < philo->args->philo_count - 1)
+		dinner_finished = 1;
+		while (id <= philo->args->philo_count - 1)
 		{
 			pthread_mutex_lock(philo[id].time_mutex);
 			last_eat_time = philo[id].last_eat;
+			dinner_finished = dinner_finished
+				&& (philo[id].eat_count == philo->args->must_eat_count);
 			pthread_mutex_unlock(philo[id].time_mutex);
 			if (get_time() - last_eat_time >= philo->args->time_to_die)
-			{
-				die(&philo[id], start_time, id);
-				return (NULL);
-			}
-			usleep(100);
+				return (die(&philo[id], start_time, id));
 			id++;
 		}
+		if (dinner_finished)
+			return (finish_dinner(philo));
 		id = 0;
 	}
 }
