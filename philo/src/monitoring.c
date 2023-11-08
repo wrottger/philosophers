@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:44:08 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/08 15:05:34 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:19:10 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,7 @@ void	*monitoring_thread(t_philosopher *philo)
 			pthread_mutex_unlock(philo[id].time_mutex);
 			if (get_time() - last_eat_time >= philo->args->time_to_die)
 			{
-				printf("%zu %d died\n", get_time() - start_time, philo[id].id + 1);
-				pthread_mutex_lock(philo->death_mutex);
-				*philo->death_flag = 1;
-				pthread_mutex_unlock(philo->death_mutex);
-				die(&philo[id]);
+				die(&philo[id], start_time, id);
 				return (NULL);
 			}
 			usleep(100);

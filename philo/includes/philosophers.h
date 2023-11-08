@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:13:15 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/08 10:54:59 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:19:03 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@
 # include <stdio.h>
 # include <sys/time.h>
 # include <unistd.h>
-
-typedef enum e_state
-{
-	THINKING,
-	EATING,
-	SLEEPING,
-	DEAD
-}t_state;
 
 typedef struct s_args
 {
@@ -40,7 +32,6 @@ typedef struct s_philosopher
 {
 	int					id;
 	pthread_t			thread;
-	pthread_mutex_t		*forks;
 	pthread_mutex_t		*time_mutex;
 	size_t				last_eat;
 	pthread_mutex_t		*death_mutex;
@@ -49,12 +40,11 @@ typedef struct s_philosopher
 	size_t				start_time;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
-	t_state				state;
 }t_philosopher;
 
 // actions.c
 void			wait_for_eat(t_philosopher *philo);
-void			die(t_philosopher *philo);
+void			die(t_philosopher *philo, int start_time, int id);
 void			eat(t_philosopher *philo);
 void			philo_sleep(t_philosopher *philo);
 void			think(t_philosopher *philo);

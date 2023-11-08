@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:07:08 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/08 14:57:19 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:14:32 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,3 @@ t_args	*init_args(char **argv)
 		return (NULL);
 	return (args);
 }
-

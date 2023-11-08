@@ -14,7 +14,6 @@ SRC		=	actions.c \
 			mutexes.c \
 			philosopher.c \
 			philosophers.c \
-			printing.c \
 			time.c 
 
 SRCS	= $(addprefix $(SRC_PATH), $(SRV_SRC))

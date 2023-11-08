@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:47:14 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/08 14:07:31 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:20:00 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ static void	*loop_philosophers(
 
 	id = 0;
 	death_mutex = malloc(sizeof(pthread_mutex_t));
-	if (!death_mutex)
-		return (NULL);
-	if (pthread_mutex_init(death_mutex, NULL) != 0)
+	if (!death_mutex || pthread_mutex_init(death_mutex, NULL) != 0)
 		return (NULL);
 	while (id < args->philo_count)
 	{
@@ -34,7 +32,6 @@ static void	*loop_philosophers(
 		pthread_mutex_init(time_mutex, NULL);
 		philosophers[id].id = id;
 		philosophers[id].args = args;
-		philosophers[id].forks = forks;
 		philosophers[id].death_mutex = death_mutex;
 		philosophers[id].death_flag = death_flag;
 		philosophers[id].time_mutex = time_mutex;
@@ -65,11 +62,6 @@ t_philosopher	*init_philosophers(t_args *args, pthread_mutex_t *forks)
 	*death_flag = 0;
 	loop_philosophers(philosophers, args, forks, death_flag);
 	return (philosophers);
-}
-
-void	cleanup_philosophers(t_philosopher *philosophers)
-{
-	free(philosophers);
 }
 
 int	start_the_feast(t_philosopher *philosophers)

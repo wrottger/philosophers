@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:12:18 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/08 14:57:44 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:13:25 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	sync_start_time(t_philosopher *philo)
 void	*philosopher(t_philosopher *philo)
 {
 	sync_start_time(philo);
-	if ((philo->id + 1) % 2 == 0 )
+	if ((philo->id + 1) % 2 == 0)
 		usleep(2000);
 	while (1)
 	{
