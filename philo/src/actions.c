@@ -6,7 +6,46 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:12:25 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/06 14:12:26 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/08 13:53:28 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philosophers.h"
+
+void	wait_for_eat(t_philosopher *philo)
+{
+	if ((philo->id + 1) % 2 == 0 )
+	{
+		pthread_mutex_lock(philo->left_fork);
+		pthread_mutex_lock(philo->right_fork);
+	}
+	if ((philo->id + 1) % 2 == 1)
+	{
+		pthread_mutex_lock(philo->right_fork);
+		pthread_mutex_lock(philo->left_fork);
+	}
+}
+
+void	die(t_philosopher *philo)
+{
+	pthread_mutex_lock(philo->death_mutex);
+	*philo->death_flag = 1;
+	pthread_mutex_unlock(philo->death_mutex);
+}
+
+void	eat(t_philosopher *philo)
+{
+	printf("%zu %d is eating\n", get_time() - philo->start_time, philo->id + 1);
+	ft_wait(philo->args->time_to_eat);
+}
+
+void	philo_sleep(t_philosopher *philo)
+{
+	printf("%zu %d is sleeping\n", get_time() - philo->start_time, philo->id + 1);
+	ft_wait(philo->args->time_to_sleep);
+}
+
+void	think(t_philosopher *philo)
+{
+	printf("%zu %d is thinking\n", get_time() - philo->start_time, philo->id + 1);
+}

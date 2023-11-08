@@ -1,7 +1,7 @@
 NAME	= philosophers
 
 CC		= gcc
-CFLAGS	= -Werror -Wextra -Wall -fsanitize=address -g
+CFLAGS	= -Werror -Wextra -Wall -ofast
 
 SRC_PATH	=	src/
 SRC		=	actions.c \
@@ -10,6 +10,7 @@ SRC		=	actions.c \
 			ft_atoi.c \
 			initialization.c \
 			main.c \
+			monitoring.c \
 			mutexes.c \
 			philosopher.c \
 			philosophers.c \
@@ -25,8 +26,6 @@ OBJS	= $(addprefix $(OBJ_PATH), $(OBJ))
 INCLUDES	= -I./includes
 
 all: $(NAME)
-
-$(NAME): $(SRCS)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)

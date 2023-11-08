@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:09:17 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/06 19:44:50 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/07 10:39:44 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	args = NULL;
 	forks = NULL;
 	philosophers = NULL;
-	if (initialization(argv, args, forks, philosophers) == -1)
+	if (initialization(argv, &args, &forks, &philosophers) == -1)
 		return (1);
 	start_the_feast(philosophers);
 	cleanup(philosophers, forks, args);
