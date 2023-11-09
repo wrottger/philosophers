@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:40:28 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/06 19:28:12 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/08 20:50:13 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	cleanup(
 	pthread_mutex_t *forks,
 	t_args *args)
 {
-	free(forks);
+	free_forks(forks, args->philo_count);
+	free_philosophers(philosophers);
 	free(args);
-	free(philosophers);
 }

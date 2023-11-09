@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:13:15 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/08 20:14:27 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/08 21:08:19 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_args			*init_args(char **argv);
 
 // mutexes.c
 pthread_mutex_t	*init_forks(int philo_count);
+void			free_forks(pthread_mutex_t *forks, int philo_count);
 
 // philosopher.c
 void			*philosopher(t_philosopher *philo);
@@ -82,6 +83,7 @@ void			*philosopher(t_philosopher *philo);
 t_philosopher	*init_philosophers(t_args *args, pthread_mutex_t *forks);
 int				start_the_feast(t_philosopher *philosophers);
 void			cleanup_philosophers(t_philosopher *philosophers);
+void			free_philosophers(t_philosopher *philosophers);
 
 // time.c
 size_t			get_time(void);

@@ -6,11 +6,30 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:47:14 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/08 19:52:28 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/09 08:56:16 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	free_philosophers(t_philosopher *philosophers)
+{
+	int	i;
+
+	i = 1;
+	pthread_mutex_destroy(philosophers[0].death_mutex);
+	free(philosophers[0].death_mutex);
+	while (i < philosophers->args->philo_count)
+	{
+		pthread_mutex_destroy(philosophers[i].time_mutex);
+		free(philosophers[i].time_mutex);
+		i++;
+	}
+	pthread_mutex_destroy(philosophers->time_mutex);
+	free(philosophers->time_mutex);
+	free(philosophers->death_flag);
+	free(philosophers);
+}
 
 static void	*loop_philosophers(
 	t_philosopher *philosophers,
@@ -89,5 +108,6 @@ int	start_the_feast(t_philosopher *philosophers)
 		pthread_join(threads[i], NULL);
 	pthread_join(*monitoring, NULL);
 	free(monitoring);
+	free(threads);
 	return (1);
 }
