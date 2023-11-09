@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:12:25 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/08 21:02:41 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:02:00 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	*die(t_philosopher *philo, size_t start_time, int id)
 {
 	printf("%zu %d died\n",
 		get_time() - start_time, id + 1);
-	pthread_mutex_lock(philo->death_mutex);
+	pthread_mutex_lock(philo->global_mutex);
 	*philo->death_flag = 1;
-	pthread_mutex_unlock(philo->death_mutex);
+	pthread_mutex_unlock(philo->global_mutex);
 	return (NULL);
 }
 

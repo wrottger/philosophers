@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:47:14 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/09 08:56:16 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:02:00 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ void	free_philosophers(t_philosopher *philosophers)
 	int	i;
 
 	i = 1;
-	pthread_mutex_destroy(philosophers[0].death_mutex);
-	free(philosophers[0].death_mutex);
+	pthread_mutex_destroy(philosophers[0].global_mutex);
+	free(philosophers[0].global_mutex);
 	while (i < philosophers->args->philo_count)
 	{
-		pthread_mutex_destroy(philosophers[i].time_mutex);
-		free(philosophers[i].time_mutex);
+		pthread_mutex_destroy(philosophers[i].philo_mutex);
+		free(philosophers[i].philo_mutex);
 		i++;
 	}
-	pthread_mutex_destroy(philosophers->time_mutex);
-	free(philosophers->time_mutex);
+	pthread_mutex_destroy(philosophers->philo_mutex);
+	free(philosophers->philo_mutex);
 	free(philosophers->death_flag);
 	free(philosophers);
 }
@@ -38,22 +38,22 @@ static void	*loop_philosophers(
 	int *death_flag)
 {
 	int				id;
-	pthread_mutex_t	*death_mutex;
-	pthread_mutex_t	*time_mutex;
+	pthread_mutex_t	*global_mutex;
+	pthread_mutex_t	*philo_mutex;
 
 	id = 0;
-	death_mutex = malloc(sizeof(pthread_mutex_t));
-	if (!death_mutex || pthread_mutex_init(death_mutex, NULL) != 0)
+	global_mutex = malloc(sizeof(pthread_mutex_t));
+	if (!global_mutex || pthread_mutex_init(global_mutex, NULL) != 0)
 		return (NULL);
 	while (id < args->philo_count)
 	{
-		time_mutex = malloc(sizeof(pthread_mutex_t));
-		pthread_mutex_init(time_mutex, NULL);
+		philo_mutex = malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init(philo_mutex, NULL);
 		philosophers[id].id = id;
 		philosophers[id].args = args;
-		philosophers[id].death_mutex = death_mutex;
+		philosophers[id].global_mutex = global_mutex;
 		philosophers[id].death_flag = death_flag;
-		philosophers[id].time_mutex = time_mutex;
+		philosophers[id].philo_mutex = philo_mutex;
 		if (id > 0)
 			philosophers[id].left_fork = &forks[id - 1];
 		else

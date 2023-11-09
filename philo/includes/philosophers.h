@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:13:15 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/08 21:08:19 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:02:00 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct s_philosopher
 {
 	int					id;
 	pthread_t			thread;
-	pthread_mutex_t		*time_mutex;
+	pthread_mutex_t		*philo_mutex;
 	size_t				last_eat;
-	pthread_mutex_t		*death_mutex;
+	pthread_mutex_t		*global_mutex;
 	int					*death_flag;
 	t_args				*args;
 	size_t				start_time;
