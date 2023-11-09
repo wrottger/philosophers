@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:44:08 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/08 20:33:50 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/09 08:52:04 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	*monitoring_thread(t_philosopher *philo)
 				return (die(&philo[id], start_time, id));
 			id++;
 		}
-		if (dinner_finished)
+		if (philo->args->must_eat_count != -1 && dinner_finished)
 			return (finish_dinner(philo));
 		id = 0;
 	}
