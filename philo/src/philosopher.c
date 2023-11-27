@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:12:18 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/09 09:02:00 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:49:50 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,15 @@ void	*philosopher(t_philosopher *philo)
 {
 	sync_start_time(philo);
 	if ((philo->id + 1) % 2 == 0)
-		usleep(2000);
+		usleep(philo->args->time_to_eat * 900);
 	if (philo->left_fork == philo->right_fork)
 		return (NULL);
 	while (1)
 	{
-		usleep((philo->id) * (300 / philo->args->philo_count));
 		wait_for_eat(philo);
 		if (has_died(philo))
 			return (NULL);
-		pthread_mutex_lock(philo->philo_mutex);
 		eat(philo);
-		philo->last_eat = get_time();
-		philo->eat_count++;
-		pthread_mutex_unlock(philo->philo_mutex);
 		if (has_died(philo))
 			return (NULL);
 		philo_sleep(philo);

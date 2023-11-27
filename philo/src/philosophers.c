@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 14:47:14 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/09 09:02:00 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:40:22 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,9 @@ static void	*loop_philosophers(
 		philosophers[id].global_mutex = global_mutex;
 		philosophers[id].death_flag = death_flag;
 		philosophers[id].philo_mutex = philo_mutex;
+		philosophers[id].left_fork = &forks[args->philo_count - 1];
 		if (id > 0)
 			philosophers[id].left_fork = &forks[id - 1];
-		else
-			philosophers[id].left_fork = &forks[args->philo_count - 1];
 		philosophers[id].right_fork = &forks[id];
 		id++;
 	}

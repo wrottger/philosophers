@@ -6,7 +6,7 @@
 /*   By: wrottger <wrottger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:07:08 by wrottger          #+#    #+#             */
-/*   Updated: 2023/11/08 18:19:28 by wrottger         ###   ########.fr       */
+/*   Updated: 2023/11/09 11:04:49 by wrottger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static int	check_args(t_args *args)
 		printf("Error: Number of philosophers must be bigger than 0\n");
 		return (-1);
 	}
-	if (args->time_to_die < 0
-		|| args->time_to_eat < 0
+	if (args->time_to_eat < 0
 		|| args->time_to_sleep < 0)
 	{
 		printf("Error: Arguments must be bigger than 0\n");

@@ -1,7 +1,7 @@
 NAME	= philosophers
 
 CC		= gcc
-CFLAGS	= -Werror -Wextra -Wall -odebug -g -fsanitize=address
+CFLAGS	= -Werror -Wextra -Wall
 
 SRC_PATH	=	src/
 SRC		=	actions.c \
@@ -33,7 +33,7 @@ $(OBJ_PATH):
 	@mkdir $(OBJ_PATH)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lpthread $(INCLUDES)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -pthread $(INCLUDES)
 	@echo "$(NAME) ready"
 
 bonus: all
